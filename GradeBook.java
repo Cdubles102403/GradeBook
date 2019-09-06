@@ -9,9 +9,9 @@ import java.util.ArrayList;
 /**
  * ToDo
  * 1. add GPA calculator
- * 2. Try Catch blocks any where there are inputs
- * 3. letter grade 
- * 4. change grades function
+ * 2. XXTry Catch block
+ * 3. XXletter grade 
+ * 4. XXchange grades function
  * 5. mass grade input
  * 
  */
@@ -21,6 +21,7 @@ public class GradeBook {
    static double earned;
     static double total;
     static double finalGrade;
+    static char LetterGrade;
     static ArrayList<Double> GradeAry = new ArrayList<Double>();
 
     public static void main(String[] args) {
@@ -33,18 +34,26 @@ public class GradeBook {
         int action = scanner.nextInt();
         // if statment for entering new grade
         if(action == 1){
-            System.out.println("what is the points earned on your assignment?");
+            try{
+             System.out.println("what is the points earned on your assignment?");
             earned = scanner.nextDouble();
             System.out.println("what was the total amount of points on the assognment?");
-            total = scanner.nextDouble();
+            total = scanner.nextDouble();   
+            }
+ 
+            catch( Exception e){
+                System.out.println("you must input numbers");
+                break;
+            }
             double grade = grade(earned ,total);
-            
             GradeAry.add(grade);
             double FinalGrade = TotalGrade();
+            String letter = FindLetter(grade);
+            System.out.println("your letter grade is " + letter);
             System.out.println("your total percent is " + FinalGrade);
-            System.out.println(grade);
+            System.out.println("your grade on the last assignment is" + grade);
         }
-        //if statment for looking at new grades
+        //if statment for looking at all grades
         else if(action == 2){
          System.out.println(GradeAry);
         }
@@ -67,5 +76,26 @@ public class GradeBook {
         }
         totaled = totaled / GradeAry.size();
         return totaled;
+    }
+    
+    public static String FindLetter(double finalgrade ){
+        String letter;
+        if(finalgrade >= .94){
+            letter = "A";
+        }
+       else if(finalgrade > .80 && finalgrade < .93 ){
+            letter = "B";
+        }
+        
+       else if (finalgrade > .73 && finalgrade < .80){
+           letter = "C";
+       }
+       else if (finalgrade > .60 && finalgrade <.80){
+           letter = "D";
+       }
+       else {
+           letter ="F";
+       }
+        return letter;
     }
 }
